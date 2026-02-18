@@ -47,22 +47,53 @@ const LoadingScreen = () => {
 
 // Navigation Component
 const Navigation = ({ scrolled }) => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const closeMenu = () => setMenuOpen(false);
+
+    useEffect(() => {
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [menuOpen]);
+
     return (
-        <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-            <div className="logo-container">
-                <img 
-                    src={scrolled ? 'logo-t.png' : 'inverted-logo.png'} 
-                    alt="The House of Umaa"
-                    style={{ transition: 'opacity 0.3s ease' }}
-                />
+        <>
+            <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
+                <div className="logo-container">
+                    <img 
+                        src={scrolled ? 'logo-t.png' : 'inverted-logo.png'}
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'logo.jpg'; }}
+                        alt="The House of Umaa"
+                        style={{ transition: 'opacity 0.3s ease' }}
+                    />
+                </div>
+                <ul className="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#products">Collection</a></li>
+                    <li><a href="#philosophy">Philosophy</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button 
+                    className={`hamburger ${menuOpen ? 'open' : ''}`}
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+
+            <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+                <ul className="mobile-menu-links">
+                    <li><a href="#about" onClick={closeMenu}>About</a></li>
+                    <li><a href="#products" onClick={closeMenu}>Collection</a></li>
+                    <li><a href="#philosophy" onClick={closeMenu}>Philosophy</a></li>
+                    <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
+                </ul>
+                <p className="mobile-menu-tagline">Curated Accessories &amp; Artistry</p>
             </div>
-            <ul className="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#products">Collection</a></li>
-                <li><a href="#philosophy">Philosophy</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        </>
     );
 };
 
@@ -189,7 +220,7 @@ const Philosophy = () => {
                 <blockquote className="philosophy-quote">
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 </blockquote>
-                <p className="philosophy-author">— The House of Umaa</p>
+                <p className="philosophy-author">&#8212; The House of Umaa</p>
             </div>
         </section>
     );
@@ -211,8 +242,7 @@ const Contact = () => {
                     </a>
                     <div className="social-links">
                         <a href="#" className="social-link">Instagram</a>
-                        <a href="#" className="social-link">Pinterest</a>
-                        <a href="#" className="social-link">TikTok</a>
+                        <a href="#" className="social-link">E-mail</a>
                     </div>
                 </div>
                 <div className="contact-right">
@@ -253,21 +283,31 @@ function initAnimations() {
         }
     });
 
-    // Logo fade in
-    gsap.to('.logo-container', {
-        opacity: 1,
-        duration: 1,
-        delay: 2.5
-    });
+    const isMobile = window.innerWidth <= 768;
 
-    // Nav links stagger
-    gsap.to('.nav-links li', {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        delay: 2.7
-    });
+    // Logo fade in
+    if (isMobile) {
+        gsap.set('.logo-container', { opacity: 1 });
+    } else {
+        gsap.to('.logo-container', {
+            opacity: 1,
+            duration: 1,
+            delay: 2.5
+        });
+    }
+
+    // Nav links stagger - skip on mobile (hamburger menu used instead)
+    if (!isMobile) {
+        gsap.to('.nav-links li', {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            delay: 2.7
+        });
+    } else {
+        gsap.set('.nav-links li', { opacity: 1, y: 0 });
+    }
 
     // Hero title animation - each word slides in
     gsap.to('.hero-title span', {

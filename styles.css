@@ -578,6 +578,107 @@ body {
 }
 
 /* ===================================
+   HAMBURGER MENU
+   =================================== */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 1100;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background-color: var(--cream);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.nav.scrolled .hamburger span {
+    background-color: var(--dark);
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile full-screen menu overlay */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark);
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.mobile-menu-links li {
+    overflow: hidden;
+}
+
+.mobile-menu-links a {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    font-weight: 300;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 3px;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-links a:hover {
+    color: var(--gold);
+}
+
+.mobile-menu-tagline {
+    position: absolute;
+    bottom: 3rem;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--stone);
+}
+
+/* ===================================
    RESPONSIVE DESIGN
    =================================== */
 
@@ -586,14 +687,17 @@ body {
         flex-direction: column;
     }
     
-    .hero-left,
+    .hero-left {
+        width: 100%;
+        height: 60vh;
+        padding: 0 3rem;
+        justify-content: flex-end;
+        padding-bottom: 4rem;
+    }
+
     .hero-right {
         width: 100%;
-        height: 50vh;
-    }
-    
-    .hero-left {
-        padding: 0 3rem;
+        height: 40vh;
     }
     
     .about-container,
@@ -604,42 +708,208 @@ body {
     
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
+        padding: 0 2rem;
+        gap: 1.5rem;
     }
     
     .nav {
-        padding: 1.5rem 2rem;
+        padding: 1.5rem 2.5rem;
     }
     
     .nav.scrolled {
-        padding: 1rem 2rem;
+        padding: 1rem 2.5rem;
     }
 }
 
 @media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-        padding: 0 2rem;
+
+    /* --- NAV --- */
+    .nav {
+        padding: 1.2rem 1.5rem;
+        justify-content: space-between;
+        align-items: center;
     }
-    
+
+    .nav.scrolled {
+        padding: 0.9rem 1.5rem;
+    }
+
+    .logo-container {
+        width: 80px;
+        opacity: 1 !important;
+        flex-shrink: 0;
+    }
+
+    /* Hide desktop nav links, show hamburger */
     .nav-links {
-        gap: 1.5rem;
+        display: none;
     }
-    
-    .nav-links a {
+
+    .hamburger {
+        display: flex;
+    }
+
+    /* --- HERO --- */
+    .hero {
+        flex-direction: column-reverse; /* image on top, text below */
+        height: 100vh;
+    }
+
+    .hero-left {
+        width: 100%;
+        height: 55%;
+        padding: 2.5rem 1.8rem 3rem;
+        justify-content: center;
+    }
+
+    .hero-right {
+        width: 100%;
+        height: 45%;
+    }
+
+    .hero-title {
+        font-size: clamp(2.8rem, 12vw, 4.5rem);
+        margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
         font-size: 0.7rem;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
     }
-    
+
+    .hero-cta {
+        padding: 1rem 2rem;
+        font-size: 0.75rem;
+    }
+
+    /* --- ABOUT --- */
+    .about {
+        padding: 6rem 0 4rem;
+    }
+
+    .about-container {
+        padding: 0 1.8rem;
+        gap: 2.5rem;
+    }
+
+    .about-image-wrapper {
+        height: 320px;
+    }
+
     .about-content {
         padding-left: 0;
     }
-    
+
+    .about-text {
+        font-size: 1rem;
+    }
+
+    /* --- PRODUCTS --- */
+    .products {
+        padding: 5rem 0 4rem;
+    }
+
+    .products-header {
+        margin-bottom: 3rem;
+        padding: 0 1.8rem;
+    }
+
+    .products-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 1.2rem;
+        gap: 1rem;
+    }
+
+    /* Make all product cards same aspect ratio on mobile for consistency */
+    .product-card,
+    .product-card:nth-child(1),
+    .product-card:nth-child(2),
+    .product-card:nth-child(3),
+    .product-card:nth-child(4),
+    .product-card:nth-child(5),
+    .product-card:nth-child(6),
+    .product-card:nth-child(7),
+    .product-card:nth-child(8),
+    .product-card:nth-child(9) {
+        aspect-ratio: 3/4;
+    }
+
+    /* Always show product info on mobile (no hover on touch) */
+    .product-info {
+        transform: translateY(0);
+    }
+
+    .product-name {
+        font-size: 1.1rem;
+    }
+
+    .product-desc {
+        font-size: 0.75rem;
+    }
+
+    /* --- PHILOSOPHY --- */
+    .philosophy {
+        min-height: auto;
+        padding: 6rem 2rem;
+    }
+
+    .philosophy-quote {
+        font-size: clamp(1.6rem, 6vw, 2.5rem);
+        margin-bottom: 2rem;
+    }
+
+    /* --- CONTACT --- */
+    .contact {
+        padding: 5rem 1.8rem 4rem;
+    }
+
+    .contact-container {
+        gap: 3rem;
+    }
+
+    .contact-email {
+        font-size: 1rem;
+        word-break: break-all;
+    }
+
+    .social-links {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+        padding: 2rem 1.5rem;
+    }
+
+    .footer-text {
+        font-size: 0.65rem;
+    }
+
     body {
         cursor: auto;
     }
-    
+
     .custom-cursor,
     .cursor-follower {
         display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+    }
+
+    .hero-left {
+        padding: 2rem 1.5rem 2.5rem;
     }
 }
 
