@@ -149,15 +149,15 @@ const About = () => {
 // Products Component
 const Products = () => {
     const products = [
-        { id: 1, name: 'Aurelia Ring', desc: 'Sterling Silver', price: '$000' },
-        { id: 2, name: 'Celestia Necklace', desc: 'Gold Vermeil', price: '$000' },
-        { id: 3, name: 'Luna Earrings', desc: 'Handcrafted Brass', price: '$000' },
-        { id: 4, name: 'Solstice Bracelet', desc: 'Mixed Metals', price: '$000' },
-        { id: 5, name: 'Vesper Chain', desc: 'Oxidized Silver', price: '$000' },
-        { id: 6, name: 'Meridian Cuff', desc: 'Rose Gold', price: '$000' },
-        { id: 7, name: 'Equinox Pendant', desc: 'Gemstone Accent', price: '$000' },
-        { id: 8, name: 'Zenith Ring', desc: 'Textured Gold', price: '$000' },
-        { id: 9, name: 'Arcane Brooch', desc: 'Vintage Inspired', price: '$000' }
+        { id: 1, name: 'Aurelia Ring', desc: 'Sterling Silver', price: '' },
+        { id: 2, name: 'Celestia Necklace', desc: 'Gold Vermeil', price: '' },
+        { id: 3, name: 'Luna Earrings', desc: 'Handcrafted Brass', price: '' },
+        { id: 4, name: 'Solstice Bracelet', desc: 'Mixed Metals', price: '' },
+        { id: 5, name: 'Vesper Chain', desc: 'Oxidized Silver', price: '' },
+        { id: 6, name: 'Meridian Cuff', desc: 'Rose Gold', price: '' },
+        { id: 7, name: 'Equinox Pendant', desc: 'Gemstone Accent', price: '' },
+        { id: 8, name: 'Zenith Ring', desc: 'Textured Gold', price: '' },
+        { id: 9, name: 'Arcane Brooch', desc: 'Vintage Inspired', price: '' }
     ];
 
     return (
@@ -242,7 +242,7 @@ const Contact = () => {
                     </a>
                     <div className="social-links">
                         <a href="#" className="social-link">Instagram</a>
-                        <a href="#" className="social-link">E-mail</a>
+                        <a href="#" className="social-link">Facebook</a>
                     </div>
                 </div>
                 <div className="contact-right">
@@ -266,7 +266,13 @@ const Contact = () => {
 const Footer = () => {
     return (
         <footer className="footer">
-            <p className="footer-text">© 2026 The House of Umaa. All Rights Reserved.</p>
+            <p className="footer-text">&copy; 2026 The House of Umaa. All Rights Reserved.</p>
+            <p className="footer-built">
+                Built by{' '}
+                <a href="https://kavit.site" target="_blank" rel="noopener noreferrer" className="footer-link">
+                    Kavit
+                </a>
+            </p>
         </footer>
     );
 };
