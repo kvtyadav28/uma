@@ -52,7 +52,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
+    z-index: 1100;
     background: transparent;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -590,7 +590,8 @@ body {
     padding: 4px;
     background: none;
     border: none;
-    z-index: 1100;
+    z-index: 1200;
+    position: relative;
 }
 
 .hamburger span {
@@ -604,6 +605,10 @@ body {
 
 .nav.scrolled .hamburger span {
     background-color: var(--dark);
+}
+
+.hamburger.open span {
+    background-color: var(--cream) !important;
 }
 
 .hamburger.open span:nth-child(1) {
